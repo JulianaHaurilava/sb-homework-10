@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace task_10._1
+namespace task_10._3
 {
     class Repository
     {
@@ -66,25 +66,36 @@ namespace task_10._1
                 foreach (User user in allUsers)
                 {
                     user.Print();
+                    Console.WriteLine();
                 }
             }
             
 
         }
 
-        //private void AddUser(User newUser)
-        //{
-        //    allUsers.Add(newUser);
-        //    WriteUserToFile(newUser);
-        //}
+        public void AddUser(User newUser)
+        {
+            allUsers.Add(newUser);
+            WriteUserInFile(newUser);
+        }
 
-        //private void WriteUserToFile(User newUser)
-        //{
-        //    using (StreamWriter stream = new StreamWriter(fileName, true))
-        //    {
-        //        stream.WriteLine(newUser.CreateStringForFile());
-        //    }
-        //}
-     
+        private void WriteUserInFile(User newUser)
+        {
+            using (StreamWriter stream = new StreamWriter(fileName, true))
+            {
+                stream.WriteLine(newUser.CreateStringForFile());
+            }
+        }
+
+        public bool CheckPhoneNumber(string phoneNumber)
+        {
+            foreach (User user in allUsers)
+            {
+                if (user.PhoneNumber == "+375" + phoneNumber)
+                    return false;
+            }
+            return true;
+        }
+
     }
 }

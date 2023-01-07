@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace task_10._1
+namespace task_10._3
 {
     class User
     {
-        public string Surname { get; private set; }
-        public string Name { get; private set; }
-        public string Patronymic { get; private set; }
+        public string Surname { get; set; }
+        public string Name { get; set; }
+        public string Patronymic { get; set; }
 
         private string phoneNumber;
         public string PhoneNumber
@@ -31,14 +27,14 @@ namespace task_10._1
         }
 
         private string passportSeries;
-        private string PassportSeries
+        public string PassportSeries
         {
             get { return "**"; }
             set { passportSeries = value; }
         }
 
         private string passportNumber;
-        private string PassportNumber
+        public string PassportNumber
         {
             get { return "*******"; }
             set { passportNumber = value; }
@@ -76,6 +72,9 @@ namespace task_10._1
             this.passportNumber = passportNumber;
         }
 
+        /// <summary>
+        /// Выводит всю информацию о клиенте
+        /// </summary>
         public void Print()
         {
             Console.Write($"Ф.И.О: {Surname + " " + Name + " " + Patronymic}\n" +

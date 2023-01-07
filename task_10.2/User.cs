@@ -4,9 +4,9 @@ namespace task_10._2
 {
     class User
     {
-        public string Surname { get; private set; }
-        public string Name { get; private set; }
-        public string Patronymic { get; private set; }
+        public string Surname { get; set; }
+        public string Name { get; set; }
+        public string Patronymic { get; set; }
 
         private string phoneNumber;
         public string PhoneNumber
@@ -27,14 +27,14 @@ namespace task_10._2
         }
 
         private string passportSeries;
-        private string PassportSeries
+        public string PassportSeries
         {
             get { return "**"; }
             set { passportSeries = value; }
         }
 
         private string passportNumber;
-        private string PassportNumber
+        public string PassportNumber
         {
             get { return "*******"; }
             set { passportNumber = value; }

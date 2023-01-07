@@ -20,31 +20,19 @@ namespace task_10._2
             ReadFile();
         }
 
-        /// <summary>
-        /// Находит клиента в коллекции
-        /// </summary>
-        /// <param name="fio"></param>
-        /// <returns></returns>
-        public User FindUserByFio(string fio)
+        public User FindUserByPhoneNumber(string phoneNumber)
         {
-            string[] fioArray = fio.Split(" ");
-            string surname = fioArray[0];
-            string name = fioArray[1];
-            string patronymic = fioArray[2];
-
             foreach (User user in allUsers)
             {
-                if (user.Surname == surname &&
-                    user.Name == name &&
-                    user.Patronymic == patronymic)
+                if (user.PhoneNumber == "+375" + phoneNumber)
                     return user;
             }
 
-            User nullUser = new User();
-            return nullUser;
+            Console.Write("Клиент с таким номером телефона не найден!\n");
+            return new User();
         }
 
-        public void ReadFile()
+        private void ReadFile()
         {
             if (File.Exists(fileName))
             {
@@ -69,9 +57,6 @@ namespace task_10._2
             }
         }
 
-        /// <summary>
-        /// Выводит информацию о сотрудниках
-        /// </summary>
         public void PrintAllUsers()
         {
             if (allUsers.Count == 0) Console.WriteLine("Записей о клиентах нет.");
@@ -88,33 +73,20 @@ namespace task_10._2
 
         }
 
-        public void AddUser(User newUser)
-        {
-            allUsers.Add(newUser);
-            WriteUserToFile(newUser);
-        }
+        //public void AddUser(User newUser)
+        //{
+        //    allUsers.Add(newUser);
+        //    WriteUserInFile(newUser);
+        //}
 
-        /// <summary>
-        /// Записывает информацию о сотруднике в файл
-        /// </summary>
-        /// <param name="newUser"></param>
-        public void WriteUserToFile(User newUser)
-        {
-            using (StreamWriter stream = new StreamWriter(fileName, true))
-            {
-                stream.WriteLine(newUser.CreateStringForFile());
-            }
-        }
+        //public void WriteUserInFile(User newUser)
+        //{
+        //    using (StreamWriter stream = new StreamWriter(fileName, true))
+        //    {
+        //        stream.WriteLine(newUser.CreateStringForFile());
+        //    }
+        //}
 
-        public bool CheckPhoneNumber(string phoneNumber)
-        {
-            foreach (User user in allUsers)
-            {
-                if (user.PhoneNumber == "+375" + phoneNumber)
-                    return false;
-            }
-            return true;
-        }
 
     }
 }

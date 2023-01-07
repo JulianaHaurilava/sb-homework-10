@@ -4,40 +4,39 @@ namespace task_10._2
 {
     class Consultant
     {
+        protected Repository r;
 
-        protected User FindUserByFio(Repository r)
+        public Consultant(Repository r)
         {
-            Console.Write("Введите ФИО клиента: ");
-            string fio = Console.ReadLine();
+            this.r = r;
+        }
+        protected User FindUserByPhoneNumber()
+        {
+            Console.Write("Введите номер телефона клиента:\n+375");
+            string phoneNumber = Console.ReadLine();
             Console.WriteLine();
-
-            return r.FindUserByFio(fio);
+            return r.FindUserByPhoneNumber(phoneNumber);
         }
 
-        protected void PrintUserByFio(Repository r)
+        protected void PrintUserByPhoneNumber()
         {
-            User userToFind = FindUserByFio(r);
-            if (userToFind.PhoneNumber != "")
-            {
+            User userToFind = FindUserByPhoneNumber();
+            if (userToFind.Name != "")
                 userToFind.Print();
-            }
-            else Console.Write("Клиент с таким ФИО не найден!\n");
         }
 
-        protected Repository ChangePhoneNumber(Repository r)
+        protected void ChangePhoneNumber(User userToEdit)
         {
-            User userToEdit = FindUserByFio(r);
-            if (userToEdit.PhoneNumber != "")
+            if (userToEdit.Name != "")
             {
                 Console.Write("Введите новый номер клиента: ");
                 userToEdit.PhoneNumber = Console.ReadLine();
                 r.AllInFile();
             }
-            else Console.Write("Клиент с таким ФИО не найден!\n");
-            return r;
+            return;
         }
 
-        public Repository LogIn(Repository r)
+        public void LogIn()
         {
             while (true)
             {
@@ -54,14 +53,15 @@ namespace task_10._2
                         break;
                     case '2':
                         Console.Clear();
-                        PrintUserByFio(r);
+                        PrintUserByPhoneNumber();
                         break;
                     case '3':
                         Console.Clear();
-                        r = ChangePhoneNumber(r);
+                        User userToEdit = FindUserByPhoneNumber();
+                        ChangePhoneNumber(userToEdit);
                         break;
                     case '0':
-                        return r;
+                        return;
                 }
 
                 Console.WriteLine("\nДля того, чтобы выйти в главное меню, нажмите любую клавишу...");

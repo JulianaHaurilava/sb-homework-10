@@ -1,53 +1,44 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace task_10._1
+namespace task_10._3
 {
     class Consultant
     {
+        protected Repository r;
 
-        private User FindUserByPhoneNumber(Repository r)
+        public Consultant(Repository r)
+        {
+            this.r = r;
+        }
+        protected User FindUserByPhoneNumber()
         {
             Console.Write("Введите номер телефона клиента:\n+375");
             string phoneNumber = Console.ReadLine();
             Console.WriteLine();
-
             return r.FindUserByPhoneNumber(phoneNumber);
         }
 
-        private void PrintUserByPhoneNumber(Repository r)
+        protected void PrintUserByPhoneNumber()
         {
-            User userToFind = FindUserByPhoneNumber(r);
-            if (userToFind.PhoneNumber != "")
-            {
+            User userToFind = FindUserByPhoneNumber();
+            if (userToFind.Name != "")
                 userToFind.Print();
-            }
-            else Console.Write("Клиент с таким номером телефона не найден!\n");
         }
 
-        private Repository ChangePhoneNumber(Repository r)
+        public void ChangePhoneNumber(User userToEdit)
         {
-            User userToEdit = FindUserByPhoneNumber(r);
-            if (userToEdit.PhoneNumber != "")
-            {
-                Console.Write("Введите новый номер телефона клиента: ");
-                userToEdit.PhoneNumber = Console.ReadLine();
-                r.AllInFile();
-            }
-            else Console.Write("Клиент с таким номер телефона не найден!\n");
-            return r;
+            Console.Write("Введите новый номер клиента: ");
+            userToEdit.PhoneNumber = Console.ReadLine();
+            r.AllInFile();
         }
 
-        public Repository LogIn(Repository r)
+        public void LogIn()
         {
             while (true)
             {
                 Console.WriteLine("    Меню\n\n" +
                                 "1 - просмотреть информацию обо всех клиентах\n" +
-                                "2 - найти клиента по номеру телефона\n" +
+                                "2 - найти клиента по ФИО\n" +
                                 "3 - изменить номер телефона клиента\n" +
                                 "0 - выйти\n");
                 switch (Console.ReadKey(true).KeyChar)
@@ -58,14 +49,18 @@ namespace task_10._1
                         break;
                     case '2':
                         Console.Clear();
-                        PrintUserByPhoneNumber(r);
+                        PrintUserByPhoneNumber();
                         break;
                     case '3':
                         Console.Clear();
-                        r = ChangePhoneNumber(r);
-                        break;
-                    case '0':
-                        return r;
+                        User userToEdit = FindUserByPhoneNumber();
+                    if (userToEdit.Name != "")
+                    {
+                        ChangePhoneNumber(userToEdit);
+                    }
+                    break;
+                case '0':
+                        return;
                 }
 
                 Console.WriteLine("\nДля того, чтобы выйти в главное меню, нажмите любую клавишу...");
