@@ -11,8 +11,6 @@ namespace task_10._1
 
         private List<User> allUsers; // Коллекция клиентов банка
 
-        public List<User> AllUsers { get { return AllUsers; } private set { AllUsers = value; } }
-
         public Repository(string fileName)
         {
             this.fileName = fileName;
@@ -20,6 +18,11 @@ namespace task_10._1
             ReadFile();
         }
 
+        /// <summary>
+        /// Ищет клиента по номеру телефона
+        /// </summary>
+        /// <param name="phoneNumber"></param>
+        /// <returns></returns>
         public User FindUserByPhoneNumber(string phoneNumber)
         {
             foreach (User user in allUsers)
@@ -30,6 +33,9 @@ namespace task_10._1
             return new User();
         }
 
+        /// <summary>
+        /// Считывает данные из файла
+        /// </summary>
         private void ReadFile()
         {
             if (File.Exists(fileName))
@@ -44,6 +50,9 @@ namespace task_10._1
             }
         }
 
+        /// <summary>
+        /// Перезаписывает информацию в файле
+        /// </summary>
         public void AllInFile()
         {
             using (StreamWriter stream = new StreamWriter(fileName))
@@ -55,6 +64,9 @@ namespace task_10._1
             }
         }
 
+        /// <summary>
+        /// Выводит информацию обо всех клиентах
+        /// </summary>
         public void PrintAllUsers()
         {
             if (allUsers.Count == 0) Console.WriteLine("Записей о клиентах нет.");
@@ -66,9 +78,6 @@ namespace task_10._1
                     user.Print();
                 }
             }
-            
-
         }
-     
     }
 }

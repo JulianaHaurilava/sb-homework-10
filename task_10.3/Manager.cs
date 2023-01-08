@@ -90,6 +90,11 @@ namespace task_10._3
                 lastChange.WriteLastChangeInFile();
             }
         }
+
+        /// <summary>
+        /// Метод меню редактирования данных о клиенте
+        /// </summary>
+        /// <param name="userToEdit"></param>
         protected void ChangeUserInfo(User userToEdit)
         {
             if (userToEdit.Name != "")
@@ -125,6 +130,10 @@ namespace task_10._3
             }
             else Console.Write("Клиент с таким номером телефона не найден!\n");
         }
+
+        /// <summary>
+        /// Метод пользовательского меню менеджера
+        /// </summary>
         public new void LogIn()
         {
             while (true)

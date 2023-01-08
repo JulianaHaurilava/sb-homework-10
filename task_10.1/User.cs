@@ -72,6 +72,9 @@ namespace task_10._1
             this.passportNumber = passportNumber;
         }
 
+        /// <summary>
+        /// Выводит информацию о клиенте банка
+        /// </summary>
         public void Print()
         {
             Console.Write($"Ф.И.О: {Surname + " " + Name + " " + Patronymic}\n" +
@@ -81,6 +84,10 @@ namespace task_10._1
             else Console.Write($"Серия и номер паспорта: данные не указаны\n");
         }
 
+        /// <summary>
+        /// Конвертирует информацию о клиенте в строку для записи в файл
+        /// </summary>
+        /// <returns></returns>
         public string CreateStringForFile()
         {
             return Surname + " " + Name + " " + Patronymic + " " + phoneNumber +

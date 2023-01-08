@@ -6,8 +6,8 @@ namespace task_10._1
     {
         static void Main(string[] args)
         {
-            Repository r = new Repository("all_users.txt");
-            Consultant cs = new Consultant(r);
+            Repository r = new("all_users.txt");
+            Consultant cs = new(r);
 
             cs.LogIn();
         }

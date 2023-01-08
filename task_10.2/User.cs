@@ -73,7 +73,7 @@ namespace task_10._2
         }
 
         /// <summary>
-        /// Выводит всю информацию о клиенте
+        /// Выводит информацию о клиенте банка
         /// </summary>
         public void Print()
         {
@@ -84,6 +84,10 @@ namespace task_10._2
             else Console.Write($"Серия и номер паспорта: данные не указаны\n");
         }
 
+        /// <summary>
+        /// Конвертирует информацию о клиенте в строку для записи в файл
+        /// </summary>
+        /// <returns></returns>
         public string CreateStringForFile()
         {
             return Surname + " " + Name + " " + Patronymic + " " + phoneNumber +

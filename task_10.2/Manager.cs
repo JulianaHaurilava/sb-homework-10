@@ -10,6 +10,11 @@ namespace task_10._2
         {
 
         }
+
+        /// <summary>
+        /// Меняет фамилию клиента
+        /// </summary>
+        /// <param name="userToEdit"></param>
         private void ChangeSurname(User userToEdit)
         {
             Console.Write("Введите новую фамилию клиента: ");
@@ -17,6 +22,11 @@ namespace task_10._2
             r.AllInFile();
             return;
         }
+
+        /// <summary>
+        /// Меняет имя клиента
+        /// </summary>
+        /// <param name="userToEdit"></param>
         private void ChangeName(User userToEdit)
         {
             Console.Write("Введите новое имя клиента: ");
@@ -24,6 +34,11 @@ namespace task_10._2
             r.AllInFile();
             return;
         }
+
+        /// <summary>
+        /// Меняет отчество клиента
+        /// </summary>
+        /// <param name="userToEdit"></param>
         private void ChangePatronimic(User userToEdit)
         {
             Console.Write("Введите новое отчество клиента: ");
@@ -31,6 +46,11 @@ namespace task_10._2
             r.AllInFile();
             return;
         }
+
+        /// <summary>
+        /// Меняет паспортные данные клиента
+        /// </summary>
+        /// <param name="userToEdit"></param>
         private void ChangePassportInfo(User userToEdit)
         {
             Console.Write("Введите новую серию паспорта клиента: ");
@@ -40,6 +60,11 @@ namespace task_10._2
             r.AllInFile();
             return;
         }
+
+        /// <summary>
+        /// Метод меню редактирования данных о клиенте
+        /// </summary>
+        /// <param name="userToEdit"></param>
         protected void ChangeUserInfo(User userToEdit)
         {
             if (userToEdit.Name != "")
@@ -75,6 +100,10 @@ namespace task_10._2
             }
             else Console.Write("Клиент с таким номером телефона не найден!\n");
         }
+
+        /// <summary>
+        /// Метод пользовательского меню менеджера
+        /// </summary>
         public new void LogIn()
         {
             while (true)

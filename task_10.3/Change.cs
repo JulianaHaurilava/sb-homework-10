@@ -45,6 +45,9 @@ namespace task_10._3
             };
         }
 
+        /// <summary>
+        /// Записывает информацию о последнем изменении в файл
+        /// </summary>
         public void WriteLastChangeInFile()
         {
             using (StreamWriter stream = new StreamWriter("commited_changes.txt", true))

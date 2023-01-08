@@ -9,6 +9,11 @@ namespace task_10._1
         {
             this.r = r;
         }
+
+        /// <summary>
+        /// Ищет клиента по номеру телефона
+        /// </summary>
+        /// <returns></returns>
         private User FindUserByPhoneNumber()
         {
             Console.Write("Введите номер телефона клиента:\n+375");
@@ -16,6 +21,11 @@ namespace task_10._1
             Console.WriteLine();
             return r.FindUserByPhoneNumber(phoneNumber);
         }
+
+        /// <summary>
+        /// Меняет номер телефона клиента
+        /// </summary>
+        /// <param name="userToEdit"></param>
         public void ChangePhoneNumber(User userToEdit)
         {
             Console.Write("Введите новый номер клиента:\n+375");
@@ -29,7 +39,10 @@ namespace task_10._1
             else Console.WriteLine("Клиент с введенным номером телефона уже зарегистрирован в системе!");
         }
 
-        public Repository LogIn()
+        /// <summary>
+        /// Метод пользовательского меню консультанта
+        /// </summary>
+        public void LogIn()
         {
             while (true)
             {
