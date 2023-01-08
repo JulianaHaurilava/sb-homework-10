@@ -1,17 +1,15 @@
 ﻿using System;
 
-namespace task_10._3
+namespace task_10._1
 {
-    class Consultant:
-        IConsultantCanEdit
+    class Consultant
     {
         protected Repository r;
-
         public Consultant(Repository r)
         {
             this.r = r;
         }
-        protected User FindUserByPhoneNumber()
+        private User FindUserByPhoneNumber()
         {
             Console.Write("Введите номер телефона клиента:\n+375");
             string phoneNumber = Console.ReadLine();
@@ -25,15 +23,13 @@ namespace task_10._3
             if (r.FindUserByPhoneNumber(phoneNumber).Name == "")
             {
                 userToEdit.PhoneNumber = phoneNumber;
-                Change lastChange = new(InfoToChange.PhoneNumber, TypeOfChange.Editing, Editor.Consultant);
-                lastChange.WriteLastChangeInFile();
                 r.AllInFile();
                 return;
             }
             else Console.WriteLine("Клиент с введенным номером телефона уже зарегистрирован в системе!");
         }
 
-        public void LogIn()
+        public Repository LogIn()
         {
             while (true)
             {
@@ -55,7 +51,7 @@ namespace task_10._3
                         else Console.Write("Клиент с таким номером телефона не найден!\n");
                         break;
                     case '0':
-                        return;
+                        return r;
                 }
 
                 Console.WriteLine("\nДля того, чтобы выйти в главное меню, нажмите любую клавишу...");

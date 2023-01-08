@@ -3,7 +3,7 @@
 namespace task_10._3
 {
     class Manager :
-        Consultant, IManagerMayEddit
+        Consultant, IManagerCanEdit
     {
         public Manager(Repository r):
             base(r)
@@ -14,12 +14,16 @@ namespace task_10._3
         {
             Console.Write("Введите новую фамилию клиента: ");
             userToEdit.Surname = Console.ReadLine();
+            Change lastChange = new(InfoToChange.Surname, TypeOfChange.Editing, Editor.Manager);
+            lastChange.WriteLastChangeInFile();
             r.AllInFile();
         }
         public void ChangeName(User userToEdit)
         {
             Console.Write("Введите новое имя клиента: ");
             userToEdit.Name = Console.ReadLine();
+            Change lastChange = new(InfoToChange.Name, TypeOfChange.Editing, Editor.Manager);
+            lastChange.WriteLastChangeInFile();
             r.AllInFile();
         }
         public void ChangePatronimic(User userToEdit)
@@ -30,15 +34,31 @@ namespace task_10._3
             lastChange.WriteLastChangeInFile();
             r.AllInFile();
         }
+        public new void ChangePhoneNumber(User userToEdit)
+        {
+            Console.Write("Введите новый номер клиента:\n+375");
+            string phoneNumber = Console.ReadLine();
+            if (r.FindUserByPhoneNumber(phoneNumber).Name == "")
+            {
+                userToEdit.PhoneNumber = phoneNumber;
+                Change lastChange = new(InfoToChange.PhoneNumber, TypeOfChange.Editing, Editor.Manager);
+                lastChange.WriteLastChangeInFile();
+                r.AllInFile();
+                return;
+            }
+            else Console.WriteLine("Клиент с введенным номером телефона уже зарегистрирован в системе!");
+        }
         public void ChangePassportInfo(User userToEdit)
         {
             Console.Write("Введите новую серию паспорта клиента: ");
             userToEdit.PassportSeries = Console.ReadLine();
             Console.Write("Введите новый номер паспорта клиента: ");
             userToEdit.PassportNumber = Console.ReadLine();
+            Change lastChange = new(InfoToChange.PassportSeriesNumber, TypeOfChange.Editing, Editor.Consultant);
+            lastChange.WriteLastChangeInFile();
             r.AllInFile();
         }
-        public void AddNewUser()
+        public User CreateUserFromConsole()
         {
             Console.WriteLine("Введите информацию о клиенте.\n");
 
@@ -48,25 +68,31 @@ namespace task_10._3
 
             Console.Write("Введите номер телефона\n+375");
             string phoneNumber = Console.ReadLine();
-            if (!r.CheckPhoneNumber(phoneNumber))
+            if (r.FindUserByPhoneNumber(phoneNumber).Name != "")
             {
                 Console.WriteLine("Клиент с введенным номером телефона уже зарегистрирован в системе!");
-                return;
+                return new User();
             }
             Console.WriteLine("Введите серию паспорта");
             string passportSeries = Console.ReadLine();
             Console.WriteLine("Введите номер паспорта");
             string passportNumber = Console.ReadLine();
 
-            r.AddUser(new User(fullNameArray[0], fullNameArray[1], fullNameArray[2],
-                phoneNumber, passportSeries, passportNumber));
-
-            Change lastChange = new(InfoToChange.AllAccount, TypeOfChange.Adding, Editor.Manager);
-            lastChange.WriteLastChangeInFile();
+            return new User(fullNameArray[0], fullNameArray[1], fullNameArray[2],
+                phoneNumber, passportSeries, passportNumber);
+        }
+        public void AddNewUser(User newUser)
+        {
+            if (newUser.Name != "")
+            {
+                r.AddUser(newUser);
+                Change lastChange = new(InfoToChange.AllAccount, TypeOfChange.Adding, Editor.Manager);
+                lastChange.WriteLastChangeInFile();
+            }
         }
         protected void ChangeUserInfo(User userToEdit)
         {
-            while (true)
+            if (userToEdit.Name != "")
             {
                 Console.WriteLine("    Какое поле вы хотите редактировать?\n\n" +
                                 "1 - фамилия\n" +
@@ -80,32 +106,24 @@ namespace task_10._3
                 {
                     case '1':
                         ChangeSurname(userToEdit);
-                        Change lastChange = new(InfoToChange.Surname, TypeOfChange.Editing, Editor.Manager);
-                        lastChange.WriteLastChangeInFile();
                         break;
                     case '2':
                         ChangeName(userToEdit);
-                        lastChange = new(InfoToChange.Name, TypeOfChange.Editing, Editor.Manager);
-                        lastChange.WriteLastChangeInFile();
                         break;
                     case '3':
                         ChangePatronimic(userToEdit);
                         break;
                     case '4':
                         ChangePhoneNumber(userToEdit);
-                        lastChange = new(InfoToChange.PhoneNumber, TypeOfChange.Editing, Editor.Manager);
-                        lastChange.WriteLastChangeInFile();
                         break;
                     case '5':
                         ChangePassportInfo(userToEdit);
-                        lastChange = new(InfoToChange.PassportSeriesNumber, TypeOfChange.Editing, Editor.Manager);
-                        lastChange.WriteLastChangeInFile();
                         break;
                     case '0':
                         return;
                 }
-                Console.Clear();
             }
+            else Console.Write("Клиент с таким номером телефона не найден!\n");
         }
         public new void LogIn()
         {
@@ -113,9 +131,8 @@ namespace task_10._3
             {
                 Console.WriteLine("    Меню\n\n" +
                                 "1 - просмотреть информацию обо всех клиентах\n" +
-                                "2 - найти клиента по номеру телефона\n" +
-                                "3 - изменить информацию о клиенте\n" +
-                                "4 - добавить нового клиента\n" +
+                                "2 - изменить информацию о клиенте\n" +
+                                "3 - добавить нового клиента\n" +
                                 "0 - выйти\n");
                 switch (Console.ReadKey(true).KeyChar)
                 {
@@ -125,17 +142,11 @@ namespace task_10._3
                         break;
                     case '2':
                         Console.Clear();
-                        PrintUserByPhoneNumber();
+                        ChangeUserInfo(FindUserByPhoneNumber());
                         break;
                     case '3':
                         Console.Clear();
-                        User userToEdit = FindUserByPhoneNumber();
-                        if (userToEdit.Name != "")
-                            ChangeUserInfo(userToEdit);
-                        break;
-                    case '4':
-                        Console.Clear();
-                        AddNewUser();
+                        AddNewUser(CreateUserFromConsole());
                         break;
                     case '0':
                         return;

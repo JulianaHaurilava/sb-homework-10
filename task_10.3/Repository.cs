@@ -24,11 +24,9 @@ namespace task_10._3
         {
             foreach (User user in allUsers)
             {
-                if (user.PhoneNumber == "+375" + phoneNumber)
+                if (user.PhoneNumber == string.Format("{0:+375 (##) ###-##-##}", int.Parse(phoneNumber)))
                     return user;
             }
-
-            Console.Write("Клиент с таким номером телефона не найден!\n");
             return new User();
         }
 
@@ -69,8 +67,6 @@ namespace task_10._3
                     Console.WriteLine();
                 }
             }
-            
-
         }
 
         public void AddUser(User newUser)
@@ -85,16 +81,6 @@ namespace task_10._3
             {
                 stream.WriteLine(newUser.CreateStringForFile());
             }
-        }
-
-        public bool CheckPhoneNumber(string phoneNumber)
-        {
-            foreach (User user in allUsers)
-            {
-                if (user.PhoneNumber == "+375" + phoneNumber)
-                    return false;
-            }
-            return true;
         }
 
     }

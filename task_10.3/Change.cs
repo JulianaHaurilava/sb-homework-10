@@ -7,9 +7,9 @@ enum Editor { Consultant, Manager }
 
 namespace task_10._3
 {
-    struct Change
+    class Change
     {
-        private DateTime dateTimeOfChanging;
+        private DateTime dateTimeOfChange;
         private string changedInfo;
         private string typeOfChange;
         private string editor;
@@ -17,7 +17,7 @@ namespace task_10._3
 
         public Change(InfoToChange changedInfo, TypeOfChange typeOfChange, Editor editor)
         {
-            dateTimeOfChanging = DateTime.Now;
+            dateTimeOfChange = DateTime.Now;
 
             this.changedInfo = changedInfo switch
             {
@@ -47,12 +47,13 @@ namespace task_10._3
 
         public void WriteLastChangeInFile()
         {
-            using (StreamWriter stream = new StreamWriter("commited_changes", true))
+            using (StreamWriter stream = new StreamWriter("commited_changes.txt", true))
             {
-                stream.WriteLine("Дата и время изменения записи: " + dateTimeOfChanging.ToString());
+                stream.WriteLine("Дата изменения записи: " + dateTimeOfChange.ToString("d"));
+                stream.WriteLine("Время изменения записи: " + dateTimeOfChange.ToString("T"));
                 stream.WriteLine("Тип измененных данных: " + changedInfo);
                 stream.WriteLine("Тип изменений: " + typeOfChange);
-                stream.WriteLine("Кто изменил данные: " + editor);
+                stream.WriteLine("Кто изменил данные: " + editor + "\n");
             }
         }
     }

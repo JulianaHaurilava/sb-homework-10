@@ -11,12 +11,12 @@ namespace task_10._2
         private string phoneNumber;
         public string PhoneNumber
         {
-            get { return $"+375{phoneNumber}"; }
+            get => string.Format("{0:+375 (##) ###-##-##}", int.Parse(phoneNumber));
             set
             {
                 if (value.Length == 13 && value.StartsWith("+375"))
                 {
-                    phoneNumber = value.Substring(4);
+                    phoneNumber = value[4..];
                 }
                 else if (value.Length == 9)
                 {

@@ -24,11 +24,9 @@ namespace task_10._1
         {
             foreach (User user in allUsers)
             {
-                if (user.PhoneNumber == "+375" + phoneNumber)
+                if (user.PhoneNumber == string.Format("{0:+375 (##) ###-##-##}", int.Parse(phoneNumber)))
                     return user;
             }
-
-            Console.Write("Клиент с таким номером телефона не найден!\n");
             return new User();
         }
 
@@ -71,20 +69,6 @@ namespace task_10._1
             
 
         }
-
-        //private void AddUser(User newUser)
-        //{
-        //    allUsers.Add(newUser);
-        //    WriteUserToFile(newUser);
-        //}
-
-        //private void WriteUserToFile(User newUser)
-        //{
-        //    using (StreamWriter stream = new StreamWriter(fileName, true))
-        //    {
-        //        stream.WriteLine(newUser.CreateStringForFile());
-        //    }
-        //}
      
     }
 }

@@ -40,10 +40,9 @@ namespace task_10._2
             r.AllInFile();
             return;
         }
-
         protected void ChangeUserInfo(User userToEdit)
         {
-            while (true)
+            if (userToEdit.Name != "")
             {
                 Console.WriteLine("    Какое поле вы хотите редактировать?\n\n" +
                                 "1 - фамилия\n" +
@@ -73,8 +72,8 @@ namespace task_10._2
                     case '0':
                         return;
                 }
-                Console.Clear();
             }
+            else Console.Write("Клиент с таким номером телефона не найден!\n");
         }
         public new void LogIn()
         {
@@ -82,8 +81,7 @@ namespace task_10._2
             {
                 Console.WriteLine("    Меню\n\n" +
                                 "1 - просмотреть информацию обо всех клиентах\n" +
-                                "2 - найти клиента по номеру телефона\n" +
-                                "3 - изменить информацию о клиенте\n" +
+                                "2 - изменить информацию о клиенте\n" +
                                 "0 - выйти\n");
                 switch (Console.ReadKey(true).KeyChar)
                 {
@@ -93,21 +91,11 @@ namespace task_10._2
                         break;
                     case '2':
                         Console.Clear();
-                        PrintUserByPhoneNumber();
-                        break;
-                    case '3':
-                        Console.Clear();
-
-                        User userToEdit = FindUserByPhoneNumber();
-                        if (userToEdit.Name != "")
-                        {
-                            ChangeUserInfo(userToEdit);
-                        }
+                        ChangeUserInfo(FindUserByPhoneNumber());
                         break;
                     case '0':
                         return;
                 }
-
                 Console.WriteLine("\nДля того, чтобы выйти в главное меню, нажмите любую клавишу...");
                 Console.ReadKey(true);
                 Console.Clear();
