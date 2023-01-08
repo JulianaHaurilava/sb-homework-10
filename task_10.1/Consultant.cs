@@ -64,7 +64,7 @@ namespace task_10._1
                         else Console.Write("Клиент с таким номером телефона не найден!\n");
                         break;
                     case '0':
-                        return r;
+                        return;
                 }
 
                 Console.WriteLine("\nДля того, чтобы выйти в главное меню, нажмите любую клавишу...");
