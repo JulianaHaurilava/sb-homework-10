@@ -1,5 +1,7 @@
 ﻿using System;
 
+enum WorkerType { Consultant, Manager }
+
 namespace task_10._1
 {
     class User
@@ -8,46 +10,20 @@ namespace task_10._1
         public string Name { get; private set; }
         public string Patronymic { get; private set; }
 
-        private string phoneNumber;
-        public string PhoneNumber
-        {
-            get => string.Format("{0:+375 (##) ###-##-##}", int.Parse(phoneNumber));
-            set
-            {
-                if (value.Length == 13 && value.StartsWith("+375"))
-                {
-                    phoneNumber = value[4..];
-                }
-                else if (value.Length == 9)
-                {
-                    phoneNumber = value;
-                }
+        public PhoneNumber PhoneNumber;
 
-            }
-        }
+        public string PassportSeries;
 
-        private string passportSeries;
-        private string PassportSeries
-        {
-            get { return "**"; }
-            set { passportSeries = value; }
-        }
-
-        private string passportNumber;
-        private string PassportNumber
-        {
-            get { return "*******"; }
-            set { passportNumber = value; }
-        }
+        public string PassportNumber;
 
         public User()
         {
             Surname = "";
             Name = "";
             Patronymic = "";
-            PhoneNumber = "";
-            passportSeries = "";
-            passportNumber = "";
+            PhoneNumber = new PhoneNumber();
+            PassportSeries = "";
+            PassportNumber = "";
         }
 
         public User(string userInfo)
@@ -56,9 +32,9 @@ namespace task_10._1
             Surname = userInfoArray[0];
             Name = userInfoArray[1];
             Patronymic = userInfoArray[2];
-            PhoneNumber = userInfoArray[3];
-            passportSeries = userInfoArray[4];
-            passportNumber = userInfoArray[5];
+            PhoneNumber = new PhoneNumber(userInfoArray[3]);
+            PassportSeries = userInfoArray[4];
+            PassportNumber = userInfoArray[5];
         }
 
         public User(string surname, string name, string patronymic,
@@ -67,20 +43,31 @@ namespace task_10._1
             Surname = surname;
             Name = name;
             Patronymic = patronymic;
-            PhoneNumber = phoneNumber;
-            this.passportSeries = passportSeries;
-            this.passportNumber = passportNumber;
+            PhoneNumber = new PhoneNumber(phoneNumber);
+            PassportSeries = passportSeries;
+            PassportNumber = passportNumber;
         }
 
         /// <summary>
         /// Выводит информацию о клиенте банка
         /// </summary>
-        public void Print()
+        /// <param name="workerType"></param>
+        public void Print(WorkerType workerType)
         {
             Console.Write($"Ф.И.О: {Surname + " " + Name + " " + Patronymic}\n" +
                 $"Номер телефона: {PhoneNumber}\n");
-            if (!String.IsNullOrEmpty(passportSeries))
-                Console.Write($"Серия и номер паспорта: {PassportSeries + PassportNumber}\n");
+            if (!String.IsNullOrEmpty(PassportSeries))
+                switch (workerType)
+                {
+                    case WorkerType.Consultant:
+                        Console.Write($"Серия и номер паспорта: *********\n");
+                        break;
+                    case WorkerType.Manager:
+                        Console.Write($"Серия и номер паспорта: {PassportSeries + PassportNumber}\n");
+                        break;
+                    default:
+                        break;
+                }
             else Console.Write($"Серия и номер паспорта: данные не указаны\n");
         }
 
@@ -90,8 +77,8 @@ namespace task_10._1
         /// <returns></returns>
         public string CreateStringForFile()
         {
-            return Surname + " " + Name + " " + Patronymic + " " + phoneNumber +
-                " " + passportSeries + " " + passportNumber;
+            return Surname + " " + Name + " " + Patronymic + " " + PhoneNumber.CreateStringForFile() +
+                " " + PassportSeries + " " + PassportNumber;
         }
     }
 }

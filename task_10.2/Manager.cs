@@ -116,7 +116,7 @@ namespace task_10._2
                 {
                     case '1':
                         Console.Clear();
-                        r.PrintAllUsers();
+                        r.PrintAllUsers(WorkerType.Manager);
                         break;
                     case '2':
                         Console.Clear();

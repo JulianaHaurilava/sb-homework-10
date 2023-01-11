@@ -17,7 +17,7 @@ namespace task_10._2
         /// <returns></returns>
         protected User FindUserByPhoneNumber()
         {
-            Console.Write("Введите номер телефона клиента:\n+375");
+            Console.Write("Введите номер телефона клиента: ");
             string phoneNumber = Console.ReadLine();
             Console.WriteLine();
             return r.FindUserByPhoneNumber(phoneNumber);
@@ -29,11 +29,11 @@ namespace task_10._2
         /// <param name="userToEdit"></param>
         protected void ChangePhoneNumber(User userToEdit)
         {
-            Console.Write("Введите новый номер клиента:\n+375");
+            Console.Write("Введите новый номер клиента: ");
             string phoneNumber = Console.ReadLine();
             if (r.FindUserByPhoneNumber(phoneNumber).Name == "")
             {
-                userToEdit.PhoneNumber = phoneNumber;
+                userToEdit.PhoneNumber = new PhoneNumber(phoneNumber);
                 r.AllInFile();
                 return;
             }
@@ -55,7 +55,7 @@ namespace task_10._2
                 {
                     case '1':
                         Console.Clear();
-                        r.PrintAllUsers();
+                        r.PrintAllUsers(WorkerType.Consultant);
                         break;
                     case '2':
                         Console.Clear();

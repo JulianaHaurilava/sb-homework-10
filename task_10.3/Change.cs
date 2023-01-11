@@ -3,7 +3,7 @@ using System.IO;
 
 enum InfoToChange { Surname, Name, Patronymic, PhoneNumber, PassportSeriesNumber, AllAccount }
 enum TypeOfChange { Editing, Adding }
-enum Editor { Consultant, Manager }
+enum WorkerType { Consultant, Manager }
 
 namespace task_10._3
 {
@@ -15,7 +15,7 @@ namespace task_10._3
         private string editor;
 
 
-        public Change(InfoToChange changedInfo, TypeOfChange typeOfChange, Editor editor)
+        public Change(InfoToChange changedInfo, TypeOfChange typeOfChange, WorkerType editor)
         {
             dateTimeOfChange = DateTime.Now;
 
@@ -39,8 +39,8 @@ namespace task_10._3
 
             this.editor = editor switch
             {
-                Editor.Consultant => "Консультант",
-                Editor.Manager => "Менеджер",
+                WorkerType.Consultant => "Консультант",
+                WorkerType.Manager => "Менеджер",
                 _ => "Ошибка",
             };
         }

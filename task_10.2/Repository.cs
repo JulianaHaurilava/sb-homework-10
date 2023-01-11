@@ -27,7 +27,7 @@ namespace task_10._2
         {
             foreach (User user in allUsers)
             {
-                if (user.PhoneNumber == string.Format("{0:+375 (##) ###-##-##}", int.Parse(phoneNumber)))
+                if (user.PhoneNumber == new PhoneNumber(phoneNumber))
                     return user;
             }
             return new User();
@@ -67,7 +67,8 @@ namespace task_10._2
         /// <summary>
         /// Выводит информацию обо всех клиентах
         /// </summary>
-        public void PrintAllUsers()
+        /// <param name="workerType"></param>
+        public void PrintAllUsers(WorkerType workerType)
         {
             if (allUsers.Count == 0) Console.WriteLine("Записей о клиентах нет.");
             else
@@ -75,12 +76,10 @@ namespace task_10._2
                 Console.WriteLine("Клиенты банка\n");
                 foreach (User user in allUsers)
                 {
-                    user.Print();
+                    user.Print(workerType);
                     Console.WriteLine();
                 }
             }
-            
-
         }
     }
 }

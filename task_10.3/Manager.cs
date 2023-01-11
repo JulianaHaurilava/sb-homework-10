@@ -14,7 +14,7 @@ namespace task_10._3
         {
             Console.Write("Введите новую фамилию клиента: ");
             userToEdit.Surname = Console.ReadLine();
-            Change lastChange = new(InfoToChange.Surname, TypeOfChange.Editing, Editor.Manager);
+            Change lastChange = new(InfoToChange.Surname, TypeOfChange.Editing, WorkerType.Manager);
             lastChange.WriteLastChangeInFile();
             r.AllInFile();
         }
@@ -22,7 +22,7 @@ namespace task_10._3
         {
             Console.Write("Введите новое имя клиента: ");
             userToEdit.Name = Console.ReadLine();
-            Change lastChange = new(InfoToChange.Name, TypeOfChange.Editing, Editor.Manager);
+            Change lastChange = new(InfoToChange.Name, TypeOfChange.Editing, WorkerType.Manager);
             lastChange.WriteLastChangeInFile();
             r.AllInFile();
         }
@@ -30,18 +30,18 @@ namespace task_10._3
         {
             Console.Write("Введите новое отчество клиента: ");
             userToEdit.Patronymic = Console.ReadLine();
-            Change lastChange = new(InfoToChange.Patronymic, TypeOfChange.Editing, Editor.Manager);
+            Change lastChange = new(InfoToChange.Patronymic, TypeOfChange.Editing, WorkerType.Manager);
             lastChange.WriteLastChangeInFile();
             r.AllInFile();
         }
         public new void ChangePhoneNumber(User userToEdit)
         {
-            Console.Write("Введите новый номер клиента:\n+375");
+            Console.Write("Введите новый номер клиента: ");
             string phoneNumber = Console.ReadLine();
             if (r.FindUserByPhoneNumber(phoneNumber).Name == "")
             {
-                userToEdit.PhoneNumber = phoneNumber;
-                Change lastChange = new(InfoToChange.PhoneNumber, TypeOfChange.Editing, Editor.Manager);
+                userToEdit.PhoneNumber = new PhoneNumber(phoneNumber);
+                Change lastChange = new(InfoToChange.PhoneNumber, TypeOfChange.Editing, WorkerType.Manager);
                 lastChange.WriteLastChangeInFile();
                 r.AllInFile();
                 return;
@@ -54,7 +54,7 @@ namespace task_10._3
             userToEdit.PassportSeries = Console.ReadLine();
             Console.Write("Введите новый номер паспорта клиента: ");
             userToEdit.PassportNumber = Console.ReadLine();
-            Change lastChange = new(InfoToChange.PassportSeriesNumber, TypeOfChange.Editing, Editor.Consultant);
+            Change lastChange = new(InfoToChange.PassportSeriesNumber, TypeOfChange.Editing, WorkerType.Consultant);
             lastChange.WriteLastChangeInFile();
             r.AllInFile();
         }
@@ -62,20 +62,20 @@ namespace task_10._3
         {
             Console.WriteLine("Введите информацию о клиенте.\n");
 
-            Console.WriteLine("Введите Ф.И.О.");
+            Console.Write("Ф.И.О: ");
             string fullName = Console.ReadLine();
             string[] fullNameArray = fullName.Split(' ');
 
-            Console.Write("Введите номер телефона\n+375");
+            Console.Write("Номер телефона: ");
             string phoneNumber = Console.ReadLine();
             if (r.FindUserByPhoneNumber(phoneNumber).Name != "")
             {
                 Console.WriteLine("Клиент с введенным номером телефона уже зарегистрирован в системе!");
                 return new User();
             }
-            Console.WriteLine("Введите серию паспорта");
+            Console.Write("Серию паспорта: ");
             string passportSeries = Console.ReadLine();
-            Console.WriteLine("Введите номер паспорта");
+            Console.Write("Номер паспорта: ");
             string passportNumber = Console.ReadLine();
 
             return new User(fullNameArray[0], fullNameArray[1], fullNameArray[2],
@@ -86,7 +86,7 @@ namespace task_10._3
             if (newUser.Name != "")
             {
                 r.AddUser(newUser);
-                Change lastChange = new(InfoToChange.AllAccount, TypeOfChange.Adding, Editor.Manager);
+                Change lastChange = new(InfoToChange.AllAccount, TypeOfChange.Adding, WorkerType.Manager);
                 lastChange.WriteLastChangeInFile();
             }
         }
@@ -147,7 +147,7 @@ namespace task_10._3
                 {
                     case '1':
                         Console.Clear();
-                        r.PrintAllUsers();
+                        r.PrintAllUsers(WorkerType.Manager);
                         break;
                     case '2':
                         Console.Clear();
